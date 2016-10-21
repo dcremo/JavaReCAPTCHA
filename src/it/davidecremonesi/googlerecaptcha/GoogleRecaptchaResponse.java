@@ -2,8 +2,6 @@ package it.davidecremonesi.googlerecaptcha;
 
 import java.util.Date;
 
-import org.codehaus.jackson.annotate.JsonProperty;
-
 /** The response is a JSON object:
  * {
  *  "success": true|false,
@@ -20,10 +18,8 @@ public class GoogleRecaptchaResponse {
 	private boolean success;
 	private Date challenge_ts;
 	private String hostname;
-	
-	
-	@JsonProperty("error-codes")
 	private String[] errorCodes;
+
 	public boolean isSuccess() {
 		return success;
 	}

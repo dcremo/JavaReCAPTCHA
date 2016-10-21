@@ -91,7 +91,7 @@ public class GoogleRecaptchaService {
 
 		// map JSON 2 java POJO
 		logger.info("Parsing della risposta: " + out);
-		GoogleRecaptchaResponse googleResp = GoogleRecaptchaResponseParser.loadFromJson(out);
+		GoogleRecaptchaResponse googleResp = new GoogleRecaptchaResponseParser().loadFromJson(out);
 
 		logger.info("Parsing ok");
 

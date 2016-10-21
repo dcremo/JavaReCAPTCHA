@@ -32,7 +32,7 @@ public class GoogleRecaptchaResponseParserTest {
 				  +"\"challenge_ts\": \"2016-10-21T18:03:05Z\","  			// timestamp of the challenge load (ISO format yyyy-MM-dd'T'HH:mm:ssZZ)
 				  + "\"hostname\": \"www.pippo.it\""   // the hostname of the site where the reCAPTCHA was solved
 				  + "}";        
-		GoogleRecaptchaResponse resp = GoogleRecaptchaResponseParser.loadFromJson(jsonOk);
+		GoogleRecaptchaResponse resp = new GoogleRecaptchaResponseParser().loadFromJson(jsonOk);
 		assertTrue(resp.isSuccess());
 		assertEquals("www.pippo.it", resp.getHostname());
 		
@@ -56,7 +56,7 @@ public class GoogleRecaptchaResponseParserTest {
 				  +"\"missing-input-response\","
 				  +"\"invalid-input-response\""
 				  +"]}";        
-		GoogleRecaptchaResponse resp = GoogleRecaptchaResponseParser.loadFromJson(jsonKo);
+		GoogleRecaptchaResponse resp = new GoogleRecaptchaResponseParser().loadFromJson(jsonKo);
 		assertFalse(resp.isSuccess());
 		assertEquals("www.pippo.it", resp.getHostname());
 		
