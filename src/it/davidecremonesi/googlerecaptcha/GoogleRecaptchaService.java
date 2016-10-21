@@ -5,14 +5,8 @@ import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
-import org.apache.http.HttpHost;
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.NTCredentials;
-import org.apache.http.client.CredentialsProvider;
-import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.RequestBuilder;
-import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
@@ -63,9 +57,8 @@ public class GoogleRecaptchaService {
 		 * Effettuare una chiamata POST a
 		 * https://www.google.com/recaptcha/api/siteverify con i parametri
 		 * secret Required. The shared key between your site and reCAPTCHA.
-		 * response Required. The user response token provided by reCAPTCHA,
-		 * verifying the user on your site. remoteip Optional. The user's IP
-		 * address
+		 * response Required. The user response token provided by reCAPTCHA, verifying the user on your site. 
+		 * remoteip Optional. The user's IP address
 		 */
 
 		logger.info("Preparazione della richiesta POST");
@@ -80,9 +73,6 @@ public class GoogleRecaptchaService {
 
 		logger.info("Preparazione del proxy");
 
-		HttpHost proxy = new HttpHost("192.168.8.100", 8080);
-		RequestConfig config = RequestConfig.custom().setProxy(proxy).build();
-		postBuilder.setConfig(config);
 		postBuilder.setUri(url);
 		CloseableHttpResponse responseClient = client.execute(postBuilder.build());
 		try {
@@ -101,7 +91,7 @@ public class GoogleRecaptchaService {
 
 		// map JSON 2 java POJO
 		logger.info("Parsing della risposta: " + out);
-		GoogleRecaptchaResponse googleResp = GoogleRecaptchaResponse.loadFromJson(out);
+		GoogleRecaptchaResponse googleResp = GoogleRecaptchaResponseParser.loadFromJson(out);
 
 		logger.info("Parsing ok");
 
